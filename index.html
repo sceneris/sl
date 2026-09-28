@@ -3,81 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Front</title>
-    
+    <title>Linden Home</title>
+
     <style>
-        body { background: #121212; color: #fff; font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 15px; }
-        
-        /* Navigation (Left-aligned) */
-        nav { display: flex; justify-content: flex-start; gap: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-        nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
-        nav a:hover, nav a.active { color: #fff; font-weight: bold; }
-
-        /* Video Card Block */
-        article { background: #1a1a1a; border-radius: 8px; padding: 15px; margin-bottom: 25px; }
-        h2 { margin: 0 0 10px; font-size: 1.2rem; }
-
-        /* 16:9 Responsive Video Box */
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
-        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
-        .loading-text { color: #888; padding: 20px 0; }
+    body { 
+        background: #121212; 
+        color: #fff; 
+        font-family: sans-serif; 
+        max-width: 100%; 
+        margin: 0 auto; 
+        padding: 20px; 
+    }
+    
+    /* Navigation */
+    nav { 
+        display: flex; 
+        justify-content: flex-start; 
+        gap: 20px; 
+        border-bottom: 1px solid #333; 
+        padding-bottom: 10px; 
+        margin-bottom: 20px; 
+    }
+    nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
+    nav a:hover, nav a.active { color: #fff; font-weight: bold; }
+    
+    /* Auto-scaling Fluid Grid (No media queries needed) */
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+    }
+    
+    /* Video Card Block */
+    article { background: #1a1a1a; border-radius: 8px; padding: 15px; }
+    h2 { margin: 0 0 10px; font-size: 1.2rem; }
+    
+    /* 16:9 Responsive Video Box */
+    .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
+    .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
- 
+    
 </head>
 <body>
 
+    <!-- NAVIGATION -->
     <nav>
-        <a href="index.html" class="active">Front</a>
-        <a href="lindenhome.html">Linden Home</a>
+        <a href="index.html">Recent</a>
+        <a href="lindenhome.html" class="active">Linden Home</a>
         <a href="mainland.html">Mainland</a>
         <a href="estate.html">Estate</a>
     </nav>
 
-    <main id="video-wrapper">
-        <div class="loading-text">Loading latest videos...</div>
+    <!-- VIDEOS -->
+    <main class="video-grid">
+        <article>
+            <h2>Traditional</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/SStJDtXXHuA" allowfullscreen></iframe>
+            </div>
+        </article>
+
+        <article>
+            <h2>Houseboat</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/TrRAil_9NVQ" allowfullscreen></iframe>
+            </div>
+        </article>
+
+        <article>
+            <h2>Camper</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/k4GTpF8rDZg" allowfullscreen></iframe>
+            </div>
+        </article>        
+
+        <article>
+            <h2>Stilt Home</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/2MRLKI6cJUY" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Ranch</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/57DpRRYrAP4" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Mediterranean</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/M9OQI17dZgE" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Thousand Island Tiki</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/9NnC26x9BQ8" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Aspen Ridge - Winter</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/O50YidItANg" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Aspen Ridge - Fall</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/ER5Zqst6pq4" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Ridgewood Enclave</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/tzmJ2C6OzUc" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Ridgewood Enclave Commerical Distreets</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/OnfCQxLUyd4" allowfullscreen></iframe>
+            </div>
+        </article>   
+
+        <article>
+            <h2>Copperfield Heights - Spring</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/ZZesFx58EXk" allowfullscreen></iframe>
+            </div>
+        </article>   
+        
     </main>
-
-    <script>
-        const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const wrapper = document.getElementById('video-wrapper');
-                wrapper.innerHTML = '';
-
-                const latestVideos = data.items.slice(0, 3);
-
-                latestVideos.forEach(item => {
-                    const videoId = item.link.split('v=')[1].split('&')[0];
-
-                    const card = document.createElement('article');
-
-                    const title = document.createElement('h2');
-                    title.textContent = item.title;
-                    card.appendChild(title);
-
-                    const videoBox = document.createElement('div');
-                    videoBox.className = 'video-box';
-
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
-                    iframe.allowFullscreen = true;
-
-                    videoBox.appendChild(iframe);
-                    card.appendChild(videoBox);
-
-                    wrapper.appendChild(card);
-                });
-            })
-            .catch(error => {
-                document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
-                console.error('Error fetching YouTube RSS:', error);
-            });
-    </script>
 
 </body>
 </html>
