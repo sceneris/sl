@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interiors Showcase</title>
+    <title>Home - Latest Showcase</title>
     <style>
         body { background: #121212; color: #fff; font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 15px; }
         
@@ -20,6 +20,8 @@
         /* 16:9 Responsive Video Box */
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .loading-text { text-align: center; color: #888; padding: 40px 0; }
     </style>
 </head>
 <body>
@@ -30,19 +32,12 @@
         <a href="landscapes.html">Estate</a>
     </nav>
 
-    
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latest Videos</title>
-</head>
+    <main id="video-wrapper">
+        <div class="loading-text">Loading latest videos...</div>
+    </main>
 
-<div id="video-wrapper" class="video-container">Loading latest videos...</div>
-
-<script>
-        // REPLACE THIS with your actual YouTube Channel ID (starts with UC)
+    <script>
         const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
-
         const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
@@ -50,25 +45,39 @@
             .then(response => response.json())
             .then(data => {
                 const wrapper = document.getElementById('video-wrapper');
-                wrapper.innerHTML = ''; // Clear loading text
+                wrapper.innerHTML = '';
 
-                // Grab only the first 3 latest videos
                 const latestVideos = data.items.slice(0, 3);
 
                 latestVideos.forEach(item => {
-                    // Extract Video ID from YouTube link URL
-                    const videoId = item.link.split('v=')[1];
+                    const videoId = item.link.split('v=')[1].split('&')[0];
 
-                    // Create iframe element
+                    const card = document.createElement('article');
+
+                    const title = document.createElement('h2');
+                    title.textContent = item.title;
+                    card.appendChild(title);
+
+                    const meta = document.createElement('p');
+                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    meta.textContent = `Published on ${pubDate}`;
+                    card.appendChild(meta);
+
+                    const videoBox = document.createElement('div');
+                    videoBox.className = 'video-box';
+
                     const iframe = document.createElement('iframe');
                     iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
                     iframe.allowFullscreen = true;
-                    
-                    wrapper.appendChild(iframe);
+
+                    videoBox.appendChild(iframe);
+                    card.appendChild(videoBox);
+
+                    wrapper.appendChild(card);
                 });
             })
             .catch(error => {
-                document.getElementById('video-wrapper').innerText = 'Failed to load videos.';
+                document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
                 console.error('Error fetching YouTube RSS:', error);
             });
     </script>
