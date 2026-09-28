@@ -10,7 +10,7 @@
         background: #121212; 
         color: #fff; 
         font-family: sans-serif; 
-        max-width: 1200px; /* Constrains max width so videos don't become massive */
+        max-width: 100%; 
         margin: 0 auto; 
         padding: 20px; 
     }
@@ -27,13 +27,13 @@
     nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
     nav a:hover, nav a.active { color: #fff; font-weight: bold; }
     
-    /* Responsive Grid: Auto-fits 3 columns on desktop, scales down cleanly without blowing up cards */
+    /* Auto-scaling Fluid Grid (No media queries needed) */
     .video-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 20px;
     }
-
+    
     /* Video Card Block */
     article { background: #1a1a1a; border-radius: 8px; padding: 15px; }
     h2 { margin: 0 0 10px; font-size: 1.2rem; }
