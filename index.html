@@ -29,7 +29,7 @@
         /* Responsive Grid (auto-fill prevents individual cards from stretching too wide) */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
             gap: 20px;
         }
         
@@ -89,7 +89,7 @@
     
                         // Set Date/Sub-info
                         const meta = document.createElement('p');
-                        const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+                        const pubDate = new Date(item.pubDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
                         meta.textContent = `Published on ${pubDate}`;
                         card.appendChild(meta);
     
