@@ -6,15 +6,23 @@
     <title>Linden Home</title>
 
     <style>
-        body { background: #121212; color: #fff; font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 15px; }
+        /* 1. Increased max-width to 1100px to fit 2 columns on desktop */
+        body { background: #121212; color: #fff; font-family: sans-serif; max-width: 1100px; margin: 0 auto; padding: 15px; }
         
         /* Navigation (Left-aligned) */
         nav { display: flex; justify-content: flex-start; gap: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
         nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
         nav a:hover, nav a.active { color: #fff; font-weight: bold; }
 
+        /* 2. Added CSS Grid for auto 2-column desktop / 1-column mobile layout */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
         /* Video Card Block */
-        article { background: #1a1a1a; border-radius: 8px; padding: 15px; margin-bottom: 25px; }
+        article { background: #1a1a1a; border-radius: 8px; padding: 15px; }
         h2 { margin: 0 0 10px; font-size: 1.2rem; }
 
         /* 16:9 Responsive Video Box */
@@ -27,7 +35,7 @@
 
     <!-- NAVIGATION -->
     <nav>
-        <a href="index.html">Front</a>
+        <a href="index.html">Recent</a>
         <a href="lindenhome.html" class="active">Linden Home</a>
         <a href="mainland.html">Mainland</a>
         <a href="estate.html">Estate</a>
