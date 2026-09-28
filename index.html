@@ -62,51 +62,56 @@
 
     <!-- AUTOMATIC YOUTUBE RSS FEED SCRIPT -->
     <script>
-        const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+            const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
+            const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
     
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const wrapper = document.getElementById('video-wrapper');
-                wrapper.innerHTML = ''; 
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const wrapper = document.getElementById('video-wrapper');
+                    wrapper.innerHTML = ''; // Clear loading text
     
-                const latestVideos = data.items.slice(0, 3);
+                    // Take the top 3 latest videos
+                    const latestVideos = data.items.slice(0, 3);
     
-                latestVideos.forEach(item => {
-                    const videoId = item.link.split('v=')[1].split('&')[0];
+                    latestVideos.forEach(item => {
+                        // Get Video ID
+                        const videoId = item.link.split('v=')[1].split('&')[0];
     
-                    const card = document.createElement('article');
+                        // Create Article Card Wrapper
+                        const card = document.createElement('article');
     
-                    const title = document.createElement('h2');
-                    title.textContent = item.title;
-                    card.appendChild(title);
+                        // Set Title
+                        const title = document.createElement('h2');
+                        title.textContent = item.title;
+                        card.appendChild(title);
     
-                    // Format date as "26 Sep 2026"
-                    const meta = document.createElement('p');
-                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-                    meta.textContent = `Published on ${pubDate}`;
-                    card.appendChild(meta);
+                        // Set Date/Sub-info
+                        const meta = document.createElement('p');
+                        const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+                        meta.textContent = `Published on ${pubDate}`;
+                        card.appendChild(meta);
     
-                    const videoBox = document.createElement('div');
-                    videoBox.className = 'video-box';
+                        // Create 16:9 Video Box
+                        const videoBox = document.createElement('div');
+                        videoBox.className = 'video-box';
     
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
-                    iframe.allowFullscreen = true;
+                        const iframe = document.createElement('iframe');
+                        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
+                        iframe.allowFullscreen = true;
     
-                    videoBox.appendChild(iframe);
-                    card.appendChild(videoBox);
+                        videoBox.appendChild(iframe);
+                        card.appendChild(videoBox);
     
-                    wrapper.appendChild(card);
+                        wrapper.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
+                    console.error('Error fetching YouTube RSS:', error);
                 });
-            })
-            .catch(error => {
-                document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
-                console.error('Error fetching YouTube RSS:', error);
-            });
-    </script>
+        </script>
 
 </body>
 </html>
