@@ -72,7 +72,7 @@
                 wrapper.innerHTML = ''; // Clear loading text
 
                 // Display recent videos (3 or 4)
-                const latestVideos = data.items.slice(0, 3);
+                const latestVideos = data.items.slice(0, 4);
 
                 latestVideos.forEach(item => {
                     const videoId = item.link.split('v=')[1].split('&')[0];
@@ -91,6 +91,11 @@
                     const iframe = document.createElement('iframe');
                     iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
                     iframe.allowFullscreen = true;
+
+                    const meta = document.createElement('p');
+                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-CB', { day: '2-digit', month: 'short', year: 'numeric' });
+                    meta.textContent = `Published on ${pubDate}`;
+                    card.appendChild(meta);
 
                     videoBox.appendChild(iframe);
                     card.appendChild(videoBox);
