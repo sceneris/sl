@@ -1,140 +1,52 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compact Showcase</title>
+    <title>Interiors Showcase</title>
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        body { background: #121212; color: #fff; font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 15px; }
+        
+        /* Navigation */
+        nav { display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
+        nav a.active { color: #fff; font-weight: bold; }
 
-        /* Compact Navigation */
-        nav {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #2a2a2a;
-            padding-bottom: 10px;
-            width: 100%;
-            max-width: 900px;
-            justify-content: center;
-        }
-        nav a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        nav a:hover, nav a.active {
-            color: #fff;
-            border-bottom: 2px solid #007acc;
-        }
+        /* Video Card Block */
+        article { background: #1a1a1a; border-radius: 8px; padding: 15px; margin-bottom: 25px; }
+        h2 { margin: 0 0 5px; font-size: 1.2rem; }
+        p { margin: 0 0 12px; color: #aaa; font-size: 0.9rem; }
 
-        /* Responsive Container */
-        .showcase-container {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Tight spacing between video cards */
-        }
-
-        /* Compact Video Card */
-        .video-item {
-            background: #181818;
-            border: 1px solid #282828;
-            border-radius: 6px;
-            padding: 12px; /* Tight inner padding */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        }
-
-        /* Compact Text Formatting */
-        .video-header {
-            margin-bottom: 8px;
-        }
-        .video-title {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        .video-subtitle {
-            margin: 4px 0 0 0;
-            color: #aaa;
-            font-size: 0.85rem;
-            line-height: 1.3;
-        }
-
-        /* Responsive 16:9 Aspect Ratio Box */
-        .embed-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 4px;
-            background: #000;
-        }
-        .embed-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Mobile Optimization */
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            nav { gap: 10px; margin-bottom: 15px; }
-            nav a { font-size: 0.85rem; }
-            .video-item { padding: 10px; }
-            .video-title { font-size: 1rem; }
-            .video-subtitle { font-size: 0.8rem; }
-        }
+        /* 16:9 Responsive Video Box */
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
+        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html">Architecture</a>
-        <a href="lindenhome.html" class="active">Linden Home</a>
+        <a href="interiors.html" class="active">Interiors</a>
         <a href="landscapes.html">Landscapes</a>
     </nav>
 
-    <div class="showcase-container">
-
-        <div class="video-item">
-            <div class="video-header">
-                <h2 class="video-title">Traditional</h2>
-                <p class="video-subtitle">Custom mesh lighting, open-plan spatial design, and muted neutral textures.</p>
-            </div>
-            <div class="embed-container">
-                <iframe src="https://youtube.com/embed/SStJDtXXHuA" allowfullscreen></iframe>
-            </div>
+    <!-- VIDEO 1 -->
+    <article>
+        <h2>Traditional</h2>
+        <p>Custom mesh lighting, open-plan spatial design, and muted neutral textures.</p>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/SStJDtXXHuA" allowfullscreen></iframe>
         </div>
+    </article>
 
-        <div class="video-item">
-            <div class="video-header">
-                <h2 class="video-title">Camper</h2>
-                <p class="video-subtitle">High-contrast neon accent lighting paired with industrial metallic decor components.</p>
-            </div>
-            <div class="embed-container">
-                <iframe src="https://youtube.com/embed/k4GTpF8rDZg" allowfullscreen></iframe>
-            </div>
+    <!-- VIDEO 2 -->
+    <article>
+        <h2>Camper</h2>
+        <p>High-contrast neon accent lighting paired with industrial metallic decor components.</p>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/k4GTpF8rDZg" allowfullscreen></iframe>
         </div>
-
-    </div>
+    </article>
 
 </body>
 </html>
