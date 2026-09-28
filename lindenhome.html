@@ -6,28 +6,55 @@
     <title>Linden Home</title>
 
     <style>
-        /* 1. Increased max-width to 1100px to fit 2 columns on desktop */
-        body { background: #121212; color: #fff; font-family: sans-serif; max-width: 1100px; margin: 0 auto; padding: 15px; }
-        
-        /* Navigation (Left-aligned) */
-        nav { display: flex; justify-content: flex-start; gap: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-        nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
-        nav a:hover, nav a.active { color: #fff; font-weight: bold; }
+    body { 
+        background: #121212; 
+        color: #fff; 
+        font-family: sans-serif; 
+        max-width: 100%; /* Spans full screen width to fill empty side margins */
+        margin: 0 auto; 
+        padding: 20px; 
+    }
+    
+    /* Navigation */
+    nav { 
+        display: flex; 
+        justify-content: flex-start; 
+        gap: 20px; 
+        border-bottom: 1px solid #333; 
+        padding-bottom: 10px; 
+        margin-bottom: 20px; 
+    }
+    nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
+    nav a:hover, nav a.active { color: #fff; font-weight: bold; }
+    
+    /* Desktop: Always 3 equal-width columns */
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
 
-        /* 2. Added CSS Grid for auto 2-column desktop / 1-column mobile layout */
+    /* Tablet adjustment (2 columns) */
+    @media (max-width: 900px) {
         .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
 
-        /* Video Card Block */
-        article { background: #1a1a1a; border-radius: 8px; padding: 15px; }
-        h2 { margin: 0 0 10px; font-size: 1.2rem; }
-
-        /* 16:9 Responsive Video Box */
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
-        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    /* Mobile adjustment (1 column) */
+    @media (max-width: 600px) {
+        .video-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Video Card Block */
+    article { background: #1a1a1a; border-radius: 8px; padding: 15px; }
+    h2 { margin: 0 0 10px; font-size: 1.2rem; }
+    
+    /* 16:9 Responsive Video Box */
+    .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
+    .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
     
 </head>
