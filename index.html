@@ -58,11 +58,6 @@
                     title.textContent = item.title;
                     card.appendChild(title);
 
-                    const meta = document.createElement('p');
-                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                    meta.textContent = `Published on ${pubDate}`;
-                    card.appendChild(meta);
-
                     const videoBox = document.createElement('div');
                     videoBox.className = 'video-box';
 
