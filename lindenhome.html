@@ -27,27 +27,6 @@
     nav a { color: #888; text-decoration: none; font-size: 1.1rem; }
     nav a:hover, nav a.active { color: #fff; font-weight: bold; }
     
-    /* Desktop: Always 3 equal-width columns */
-    .video-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-
-    /* Tablet adjustment (2 columns) */
-    @media (max-width: 900px) {
-        .video-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    /* Mobile adjustment (1 column) */
-    @media (max-width: 600px) {
-        .video-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-    
     /* Video Card Block */
     article { background: #1a1a1a; border-radius: 8px; padding: 15px; }
     h2 { margin: 0 0 10px; font-size: 1.2rem; }
