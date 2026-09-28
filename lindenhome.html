@@ -74,24 +74,26 @@
         }
 
         @media (max-width: 650px) {
-            /* Stack navigation on top, content on bottom */
+            body { 
+                padding: 15px 12px; 
+            }
+            
             .layout-wrapper {
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
             }
         
-            /* Clean horizontal top menu */
             nav {
                 flex-direction: row;
-                justify-content: left;
-                gap: 15px; /* Comfortable touch spacing for mobile fingers */
+                justify-content: flex-start; /* Left-aligns links to match Home page */
+                gap: 20px;
                 width: 100%;
-                border-bottom: 1px solid #333;
-                padding-bottom: 15px;
-                position: static; /* Unsticks nav so it scrolls naturally with page */
+                border-bottom: 1px solid #2a2a2a;
+                padding-bottom: 12px;
+                margin-bottom: 5px;
+                position: static;
             }
         
-            /* Ensures video main container expands full width */
             main {
                 width: 100%;
             }
