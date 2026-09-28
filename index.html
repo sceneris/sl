@@ -89,7 +89,7 @@
     
                         // Set Date/Sub-info
                         const meta = document.createElement('p');
-                        const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
                         meta.textContent = `Published on ${pubDate}`;
                         card.appendChild(meta);
     
