@@ -73,6 +73,30 @@
             border: 0; 
         }
 
+        @media (max-width: 650px) {
+            /* Stack navigation on top, content on bottom */
+            .layout-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+        
+            /* Clean horizontal top menu */
+            nav {
+                flex-direction: row;
+                justify-content: center;
+                gap: 25px; /* Comfortable touch spacing for mobile fingers */
+                width: 100%;
+                border-bottom: 1px solid #333;
+                padding-bottom: 15px;
+                position: static; /* Unsticks nav so it scrolls naturally with page */
+            }
+        
+            /* Ensures video main container expands full width */
+            main {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
