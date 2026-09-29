@@ -60,54 +60,55 @@
     </main>
 
     <!-- AUTOMATIC YOUTUBE RSS FEED SCRIPT -->
-    <script>
-        const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+<script>
+    const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
+    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const wrapper = document.getElementById('video-wrapper');
-                wrapper.innerHTML = ''; // Clear loading text
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const wrapper = document.getElementById('video-wrapper');
+            wrapper.innerHTML = ''; // Clear loading text
 
-                // Display recent videos (3 or 4)
-                const latestVideos = data.items.slice(0, 4);
+            const latestVideos = data.items.slice(0, 4);
 
-                latestVideos.forEach(item => {
-                    const videoId = item.link.split('v=')[1].split('&')[0];
+            latestVideos.forEach(item => {
+                const videoId = item.link.split('v=')[1].split('&')[0];
 
-                    const card = document.createElement('article');
+                const card = document.createElement('article');
 
-                    // Title heading (matches Linden Home style)
-                    const title = document.createElement('h2');
-                    title.textContent = item.title;
-                    card.appendChild(title);
+                // Title
+                const title = document.createElement('h2');
+                title.textContent = item.title;
+                card.appendChild(title);
 
-                    // 16:9 Video Box
-                    const videoBox = document.createElement('div');
-                    videoBox.className = 'video-box';
+                // Publish Date
+                const meta = document.createElement('p');
+                const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                meta.textContent = `Published on ${pubDate}`;
+                card.appendChild(meta);
 
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
-                    iframe.allowFullscreen = true;
+                // 16:9 Video Box (Standard YouTube Embed)
+                const videoBox = document.createElement('div');
+                videoBox.className = 'video-box';
 
-                    const meta = document.createElement('p');
-                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                    meta.textContent = `Published on ${pubDate}`;
-                    card.appendChild(meta);
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.allowFullscreen = true;
 
-                    videoBox.appendChild(iframe);
-                    card.appendChild(videoBox);
+                videoBox.appendChild(iframe);
+                card.appendChild(videoBox);
 
-                    er.appendChild(card);
-                });
-            })
-            .catch(error => {
-                document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
-                console.error('Error fetching YouTube RSS:', error);
+                // Fixed: Changed 'er' back to 'wrapper'
+                wrapper.appendChild(card);
             });
-    </script>
+        })
+        .catch(error => {
+            document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
+            console.error('Error fetching YouTube RSS:', error);
+        });
+</script>
 
 </body>
 </html>
