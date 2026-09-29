@@ -78,11 +78,6 @@
 
                 const card = document.createElement('article');
 
-                // Title
-                const title = document.createElement('h2');
-                title.textContent = item.title;
-                card.appendChild(title);
-
                 // Publish Date
                 const meta = document.createElement('p');
                 const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
