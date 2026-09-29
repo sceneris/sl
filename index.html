@@ -93,14 +93,14 @@
                     iframe.allowFullscreen = true;
 
                     const meta = document.createElement('p');
-                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-CB', { day: '2-digit', month: 'short', year: 'numeric' });
+                    const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                     meta.textContent = `Published on ${pubDate}`;
                     card.appendChild(meta);
 
                     videoBox.appendChild(iframe);
                     card.appendChild(videoBox);
 
-                    wrapper.appendChild(card);
+                    er.appendChild(card);
                 });
             })
             .catch(error => {
