@@ -62,47 +62,88 @@
 
     <!-- AUTOMATIC YOUTUBE RSS FEED SCRIPT -->
 <script>
-    const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA'; 
+    const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA';
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const wrapper = document.getElementById('video-wrapper');
-            wrapper.innerHTML = ''; // Clear loading text
+    // Primary and Fallback API URLs
+    const primaryApi = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    const fallbackApi = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
 
-            const latestVideos = data.items.slice(0, 4);
+    function renderVideos(items) {
+        const wrapper = document.getElementById('video-wrapper');
+        wrapper.innerHTML = ''; // Clear loading text
 
-            latestVideos.forEach(item => {
-                const videoId = item.link.split('v=')[1].split('&')[0];
+        const latestVideos = items.slice(0, 4);
 
-                const card = document.createElement('article');
+        latestVideos.forEach(item => {
+            // Extract Video ID safely from link or id
+            let videoId = '';
+            if (item.link) {
+                videoId = item.link.includes('v=') ? item.link.split('v=')[1].split('&')[0] : item.link.split('/').pop();
+            } else if (item.guid) {
+                videoId = item.guid.replace('yt:video:', '');
+            }
 
-                // Publish Date
-                const meta = document.createElement('p');
-                const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                meta.textContent = `Published on ${pubDate}`;
-                card.appendChild(meta);
+            const card = document.createElement('article');
 
-                // 16:9 Video Box (Standard YouTube Embed)
-                const videoBox = document.createElement('div');
-                videoBox.className = 'video-box';
+            // Title
+            const title = document.createElement('h2');
+            title.textContent = item.title;
+            card.appendChild(title);
 
-                const iframe = document.createElement('iframe');
-                iframe.src = `https://www.youtube.com/embed/${videoId}`;
-                iframe.allowFullscreen = true;
+            // Video Embed Box
+            const videoBox = document.createElement('div');
+            videoBox.className = 'video-box';
 
-                videoBox.appendChild(iframe);
-                card.appendChild(videoBox);
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.allowFullscreen = true;
 
-                // Fixed: Changed 'er' back to 'wrapper'
-                wrapper.appendChild(card);
-            });
+            videoBox.appendChild(iframe);
+            card.appendChild(videoBox);
+
+            wrapper.appendChild(card);
+        });
+    }
+
+    // Try primary API (rss2json)
+    fetch(primaryApi)
+        .then(res => {
+            if (!res.ok) throw new Error('Primary API HTTP error');
+            return res.json();
         })
-        .catch(error => {
-            document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos.</div>';
-            console.error('Error fetching YouTube RSS:', error);
+        .then(data => {
+            if (data.status === 'ok' && data.items.length > 0) {
+                renderVideos(data.items);
+            } else {
+                throw new Error('Primary API returned invalid data');
+            }
+        })
+        .catch(err => {
+            console.warn('rss2json failed, attempting fallback proxy...', err);
+            
+            // Fallback: Fetch raw RSS via AllOrigins proxy and parse XML natively
+            fetch(fallbackApi)
+                .then(res => res.json())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+                    const entries = Array.from(xmlDoc.querySelectorAll("entry"));
+
+                    if (entries.length === 0) throw new Error("No feed entries found");
+
+                    const items = entries.map(entry => ({
+                        title: entry.querySelector("title").textContent,
+                        link: entry.querySelector("link").getAttribute("href"),
+                        guid: entry.querySelector("id").textContent
+                    }));
+
+                    renderVideos(items);
+                })
+                .catch(fallbackErr => {
+                    console.error("Both primary and fallback feeds failed:", fallbackErr);
+                    document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos. Please try refreshing.</div>';
+                });
         });
 </script>
 
