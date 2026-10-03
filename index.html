@@ -40,8 +40,6 @@
         /* 16:9 Responsive Video Box */
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        
-        .loading-text { color: #888; padding: 20px 0; }
     </style>
 </head>
 <body>
@@ -55,97 +53,42 @@
         <a href="events.html">Events</a>
     </nav>
 
-    <!-- CONTAINER FOR DYNAMICALLY LOADED CARDS -->
-    <main id="video-wrapper" class="video-grid">
-        <div class="loading-text">Loading latest videos...</div>
+    <!-- STATIC VIDEO CARDS CONTAINER -->
+    <main class="video-grid">
+
+        <!-- Card 1 (Latest Upload) -->
+        <article>
+            <h2>2026 09 27</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/ER5Zqst6pq4" allowfullscreen></iframe>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article>
+            <h2>2026 09 19</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/M9OQI17dZgE" allowfullscreen></iframe>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article>
+            <h2>2026 09 13</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/9NnC26x9BQ8" allowfullscreen></iframe>
+            </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article>
+            <h2>2026 09 05</h2>
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/k4GTpF8rDZg" allowfullscreen></iframe>
+            </div>
+        </article>
+
     </main>
-
-    <!-- AUTOMATIC YOUTUBE RSS FEED SCRIPT -->
-<script>
-    const channelId = 'UCx4iXLIKr4MPyHRMd5dXPbA';
-    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-
-    // Primary and Fallback API URLs
-    const primaryApi = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-    const fallbackApi = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-
-    function renderVideos(items) {
-        const wrapper = document.getElementById('video-wrapper');
-        wrapper.innerHTML = ''; // Clear loading text
-
-        const latestVideos = items.slice(0, 4);
-
-        latestVideos.forEach(item => {
-            // Extract Video ID safely from link or id
-            let videoId = '';
-            if (item.link) {
-                videoId = item.link.includes('v=') ? item.link.split('v=')[1].split('&')[0] : item.link.split('/').pop();
-            } else if (item.guid) {
-                videoId = item.guid.replace('yt:video:', '');
-            }
-
-            const card = document.createElement('article');
-
-            // Title
-            const title = document.createElement('h2');
-            title.textContent = item.title;
-            card.appendChild(title);
-
-            // Video Embed Box
-            const videoBox = document.createElement('div');
-            videoBox.className = 'video-box';
-
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}`;
-            iframe.allowFullscreen = true;
-
-            videoBox.appendChild(iframe);
-            card.appendChild(videoBox);
-
-            wrapper.appendChild(card);
-        });
-    }
-
-    // Try primary API (rss2json)
-    fetch(primaryApi)
-        .then(res => {
-            if (!res.ok) throw new Error('Primary API HTTP error');
-            return res.json();
-        })
-        .then(data => {
-            if (data.status === 'ok' && data.items.length > 0) {
-                renderVideos(data.items);
-            } else {
-                throw new Error('Primary API returned invalid data');
-            }
-        })
-        .catch(err => {
-            console.warn('rss2json failed, attempting fallback proxy...', err);
-            
-            // Fallback: Fetch raw RSS via AllOrigins proxy and parse XML natively
-            fetch(fallbackApi)
-                .then(res => res.json())
-                .then(data => {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-                    const entries = Array.from(xmlDoc.querySelectorAll("entry"));
-
-                    if (entries.length === 0) throw new Error("No feed entries found");
-
-                    const items = entries.map(entry => ({
-                        title: entry.querySelector("title").textContent,
-                        link: entry.querySelector("link").getAttribute("href"),
-                        guid: entry.querySelector("id").textContent
-                    }));
-
-                    renderVideos(items);
-                })
-                .catch(fallbackErr => {
-                    console.error("Both primary and fallback feeds failed:", fallbackErr);
-                    document.getElementById('video-wrapper').innerHTML = '<div class="loading-text">Failed to load latest videos. Please try refreshing.</div>';
-                });
-        });
-</script>
 
 </body>
 </html>
